@@ -23,7 +23,7 @@ if __name__ == "__main__":
 
     zip_dir=args.zippath
     all_files = extractAndList(zip_dir)
-    files_dir = zip_dir[:len(zip_dir) - 4] + '/'
+    files_dir = ".".join(zip_dir.split('.')[:-1])
 
     for file in all_files:
          print(runTest(args.testpath,files_dir,file))
