@@ -1,3 +1,4 @@
+import os
 import subprocess
 import json
 
@@ -7,7 +8,10 @@ def runTest(testCasePath,filesPath,filename):
         data = json.load(jfile)
     testResult = []
 
-    p1=subprocess.Popen(['gcc',filesPath+filename,'-o',filesPath+'a.out'],stdout=subprocess.PIPE,stderr=subprocess.PIPE,encoding='utf8')
+    fullFilePath = os.path.join(filesPath, filename)
+    fullExecPath = os.path.join(filesPath, 'a.out')
+
+    p1 = subprocess.Popen(['gcc', fullFilePath, '-o', fullExecPath], stdout=subprocess.PIPE,stderr=subprocess.PIPE,encoding='utf8')
     if p1.communicate()[1].find('error:') != -1:
         for cases in data["test_cases"]:
             testResult.append(0)
@@ -17,7 +21,7 @@ def runTest(testCasePath,filesPath,filename):
     p1.communicate()
 
     for indata in data["test_cases"]:
-        process = subprocess.Popen([filesPath+'a.out'], stdin=subprocess.PIPE,
+        process = subprocess.Popen([fullExecPath], stdin=subprocess.PIPE,
                                    stdout=subprocess.PIPE,stderr=subprocess.PIPE, encoding='utf8')
         process.stdin.write(indata["test_case"])
         if(process.communicate()[1]):
