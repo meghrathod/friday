@@ -17,15 +17,17 @@ def addMarks(fileNames,outPath,testPassList,testCasePath,bScore):
         for inData in data["test_cases"]:
             totalMarks = totalMarks +(testPassList[j][i]*inData["marks"])
             i+=1
-        if bScore:
-            allMarks.append(totalMarks+bScore[j])
-        else:
-            allMarks.append(totalMarks)
+        allMarks.append(totalMarks)
         j+=1
 
     with open(outPath,'w') as file:
         writer=csv.writer(file)
-
-        for k in range(len(fileNames)):
-            writer.writerow([get_stu_name(fileNames[k]),allMarks[k]])
+        if bScore:
+            writer.writerow(["RollNo.", "TestCaseScore", "TimeScore"])
+            for k in range(len(fileNames)):
+                writer.writerow([get_stu_name(fileNames[k]),allMarks[k], bScore[k]])
+        else:
+            writer.writerow(["RollNo.", "TestCaseScore"])
+            for k in range(len(fileNames)):
+                writer.writerow([get_stu_name(fileNames[k]),allMarks[k]])
     return 0
