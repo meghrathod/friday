@@ -3,6 +3,7 @@ import os
 from extract import extractAndList
 from inio import takeio
 from testrunner import runTest
+from grader import addMarks
 
 
 if __name__ == "__main__":
@@ -12,7 +13,7 @@ if __name__ == "__main__":
     parser.add_argument('-ti', '--test-case-path', type=str, dest='testpath',
                         required=True, help='input path for the zip')
     parser.add_argument('-o', '--output-path', type=str, dest='outpath',
-                        default='./testResults', help='output path for the extraction')
+                        default='./testResults.csv', help='output path for the extraction')
 
     args = parser.parse_args()
 
@@ -25,10 +26,13 @@ if __name__ == "__main__":
     all_files = extractAndList(zip_dir)
     files_dir = ".".join(zip_dir.split('.')[:-1])
 
-    for file in all_files:
-         print(runTest(args.testpath,files_dir,file))
-         #runTest(args.testpath, files_dir, file)
+    casesPassed=[]
 
+    for file in all_files:
+         casesPassed.append(runTest(args.testpath,files_dir,file))
+         #print(runTest(args.testpath,files_dir,file))
+         #runTest(args.testpath, files_dir, file)
+    addMarks(all_files,args.outpath,casesPassed,args.testpath)
 
 
 
