@@ -4,6 +4,7 @@ from extract import extractAndList
 from inio import takeio
 from testrunner import runTest
 from grader import addMarks
+from calcBonus import get_bonus_score
 
 
 if __name__ == "__main__":
@@ -15,6 +16,8 @@ if __name__ == "__main__":
     parser.add_argument('-o', '--output-path', type=str, dest='outpath',
                         default='./testResults.csv', help='output path for the extraction')
     parser.add_argument('-r','--record-time',action='store_true',dest='checkTime',help='use to record runtime')
+    parser.add_argument('-m', '--max-bonus-score', type=int, dest='maxB',
+                        default=10, help='maximum bonus score')
 
     args = parser.parse_args()
 
@@ -35,8 +38,11 @@ if __name__ == "__main__":
         casesPassed.append(test_result)
         if args.checkTime:
             timetaken.append(time)
-    addMarks(all_files,args.outpath,casesPassed,args.testpath)
-    print(timetaken)
+    bScore=[]
+
+    if args.checkTime:
+        bScore=get_bonus_score(timetaken,args.maxB)
+    addMarks(all_files, args.outpath, casesPassed, args.testpath,bScore)
 
 
 
