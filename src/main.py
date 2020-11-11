@@ -18,6 +18,8 @@ if __name__ == "__main__":
     parser.add_argument('-r','--record-time',action='store_true',dest='checkTime',help='use to record runtime')
     parser.add_argument('-m', '--max-bonus-score', type=int, dest='maxB',
                         default=10, help='maximum bonus score')
+    parser.add_argument('-to', '--timeout', type=int, dest='timeOut',
+                        default=60, help='set timeout for each testcase')
 
     args = parser.parse_args()
 
@@ -34,7 +36,7 @@ if __name__ == "__main__":
     timetaken=[]
 
     for file in all_files:
-        test_result, time = runTest(args.testpath,files_dir,file)
+        test_result, time = runTest(args.testpath,files_dir,file,args.timeOut)
         casesPassed.append(test_result)
         if args.checkTime:
             timetaken.append(time)
