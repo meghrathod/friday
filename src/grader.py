@@ -4,7 +4,7 @@ import json
 def get_stu_name(filename):
     return filename.split('_')[-1][:-2]
 
-def addMarks(fileNames,outPath,testPassList,testCasePath):
+def addMarks(fileNames,outPath,testPassList,testCasePath,bScore):
 
     with open(testCasePath,"r") as jfile:
         data=json.load(jfile)
@@ -17,7 +17,10 @@ def addMarks(fileNames,outPath,testPassList,testCasePath):
         for inData in data["test_cases"]:
             totalMarks = totalMarks +(testPassList[j][i]*inData["marks"])
             i+=1
-        allMarks.append(totalMarks)
+        if bScore:
+            allMarks.append(totalMarks+bScore[j])
+        else:
+            allMarks.append(totalMarks)
         j+=1
 
     with open(outPath,'w') as file:

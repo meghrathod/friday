@@ -4,6 +4,7 @@ from extract import extractAndList
 from inio import takeio
 from testrunner import runTest
 from grader import addMarks
+from calcBonus import get_bonus_score
 
 
 if __name__ == "__main__":
@@ -35,8 +36,11 @@ if __name__ == "__main__":
         casesPassed.append(test_result)
         if args.checkTime:
             timetaken.append(time)
-    addMarks(all_files,args.outpath,casesPassed,args.testpath)
-    print(timetaken)
+    bScore=[]
+    maxM=10 ##Figure out how to get max bonus
+    if args.checkTime:
+        bScore=get_bonus_score(timetaken,maxM)
+    addMarks(all_files, args.outpath, casesPassed, args.testpath,bScore)
 
 
 
