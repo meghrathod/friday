@@ -1,6 +1,7 @@
 import os
 import subprocess
 import json
+import time
 
 def runTest(testCasePath,filesPath,filename):
 
@@ -15,21 +16,20 @@ def runTest(testCasePath,filesPath,filename):
     if p1.communicate()[1].find('error:') != -1:
         for cases in data["test_cases"]:
             testResult.append(0)
-        return testResult
-
-    #print(p1.communicate()[1])
+        return testResult,0
     p1.communicate()
-
+    start=time.time()
     for indata in data["test_cases"]:
         process = subprocess.Popen([fullExecPath], stdin=subprocess.PIPE,
                                    stdout=subprocess.PIPE,stderr=subprocess.PIPE, encoding='utf8')
         process.stdin.write(indata["test_case"])
         try:
-            if(process.communicate(timeout=15)[1]):
+            if(process.communicate(timeout=1)[1]):
                 testResult.append(0)
             else:
-                testResult.append(1 if process.communicate(timeout=15)[0] == indata["output"] else 0)
+                testResult.append(1 if process.communicate(timeout=1)[0] == indata["output"] else 0)
         except subprocess.TimeoutExpired:
             process.kill()
             testResult.append(0)
-    return testResult
+    end=time.time()
+    return testResult, end-start

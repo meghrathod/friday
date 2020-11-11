@@ -14,6 +14,7 @@ if __name__ == "__main__":
                         required=True, help='input path for the zip')
     parser.add_argument('-o', '--output-path', type=str, dest='outpath',
                         default='./testResults.csv', help='output path for the extraction')
+    parser.add_argument('-r','--record-time',action='store_true',dest='checkTime',help='use to record runtime')
 
     args = parser.parse_args()
 
@@ -27,12 +28,16 @@ if __name__ == "__main__":
     files_dir = ".".join(zip_dir.split('.')[:-1])
 
     casesPassed=[]
+    timetaken=[]
 
     for file in all_files:
-         casesPassed.append(runTest(args.testpath,files_dir,file))
-         #print(runTest(args.testpath,files_dir,file))
-         #runTest(args.testpath, files_dir, file)
+        test_result, time = runTest(args.testpath,files_dir,file)
+        casesPassed.append(test_result)
+        if args.checkTime:
+            timetaken.append(time)
     addMarks(all_files,args.outpath,casesPassed,args.testpath)
+    print(timetaken)
+
 
 
 
