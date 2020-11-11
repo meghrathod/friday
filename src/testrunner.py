@@ -3,7 +3,7 @@ import subprocess
 import json
 import time
 
-def runTest(testCasePath,filesPath,filename,timeOut):
+def runTest(testCasePath,filesPath,filename,timeOut,cname):
 
     with open(testCasePath, "r") as jfile:
         data = json.load(jfile)
@@ -12,7 +12,7 @@ def runTest(testCasePath,filesPath,filename,timeOut):
     fullFilePath = os.path.join(filesPath, filename)
     fullExecPath = os.path.join(filesPath, 'a.out')
 
-    p1 = subprocess.Popen(['gcc', fullFilePath, '-o', fullExecPath], stdout=subprocess.PIPE,stderr=subprocess.PIPE,encoding='utf8')
+    p1 = subprocess.Popen([cname, fullFilePath, '-o', fullExecPath], stdout=subprocess.PIPE,stderr=subprocess.PIPE,encoding='utf8')
     if p1.communicate()[1].find('error:') != -1:
         for cases in data["test_cases"]:
             testResult.append(0)

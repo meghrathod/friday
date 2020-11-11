@@ -20,8 +20,14 @@ if __name__ == "__main__":
                         default=10, help='maximum bonus score')
     parser.add_argument('-to', '--timeout', type=int, dest='timeOut',
                         default=60, help='set timeout for each testcase')
+    parser.add_argument('-cl', '--clang', action='store_true', dest='useClang', help='use clang instead of gcc')
 
     args = parser.parse_args()
+
+    if args.useClang:
+        cname='clang'
+    else:
+        cname='gcc'
 
     if not os.path.isfile(args.zippath):
         raise ValueError("File(Zip Input) doesn't exist")
@@ -36,7 +42,7 @@ if __name__ == "__main__":
     timetaken=[]
 
     for file in all_files:
-        test_result, time = runTest(args.testpath,files_dir,file,args.timeOut)
+        test_result, time = runTest(args.testpath,files_dir,file,args.timeOut,cname)
         casesPassed.append(test_result)
         if args.checkTime:
             timetaken.append(time)
