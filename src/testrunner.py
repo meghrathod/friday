@@ -24,8 +24,12 @@ def runTest(testCasePath,filesPath,filename):
         process = subprocess.Popen([fullExecPath], stdin=subprocess.PIPE,
                                    stdout=subprocess.PIPE,stderr=subprocess.PIPE, encoding='utf8')
         process.stdin.write(indata["test_case"])
-        if(process.communicate()[1]):
+        try:
+            if(process.communicate(timeout=15)[1]):
+                testResult.append(0)
+            else:
+                testResult.append(1 if process.communicate(timeout=15)[0] == indata["output"] else 0)
+        except subprocess.TimeoutExpired:
+            process.kill()
             testResult.append(0)
-        else:
-            testResult.append(1 if process.communicate()[0] == indata["output"] else 0)
     return testResult
