@@ -60,4 +60,6 @@ The ```.json``` is expected in the following format:
 |```-m```|Max value of bonus score|10|
 |```-to```|Change timeout|60|
 |```-cl```|Use Clang instead of GCC|-|
-|```-pn```|
+|```-pn```|Specify Problem Number|-|
+|```-ww```|Remove all whitespaces from I/O|-|
+|```-abs```|Char by char comparison b/w I/O|-|
