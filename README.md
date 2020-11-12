@@ -13,6 +13,10 @@ Or, if you use ```conda```, you can install it with:
 
 ```conda install numpy```
 
+To install the project repo, run the following git command:
+
+```git clone https://github.com/aditya-mahendru/friday.git```
+
 ## Usage
 
 This project is a console application, and can be executed/compiled using ```python3```.
