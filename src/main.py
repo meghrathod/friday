@@ -1,7 +1,6 @@
 import argparse
 import os
 from extract import extractAndList
-from inio import takeio
 from testrunner import runTest
 from grader import addMarks
 from calcBonus import get_bonus_score
@@ -24,7 +23,8 @@ if __name__ == "__main__":
     parser.add_argument('-pn', '--problem-num', type=str, dest='pname',
                         default='', help='use to specify a specific problem number')
     parser.add_argument('-ww', '--without-whitespace', action='store_true', dest='raWhitespaces', help='comparison after removing all whitespaces from I/O')
-    parser.add_argument('-wws', '--without-whitespace-special', action='store_true', dest='rWhitespaces', help='comp I/O after removing whitesaces at beginning and ending')
+    parser.add_argument('-abs', '--absolute-comparison', action='store_true', dest='kWhitespaces',
+                        help='char by char comparison ')
 
     args = parser.parse_args()
 
@@ -35,11 +35,11 @@ if __name__ == "__main__":
 
 
     if args.raWhitespaces:
-        compType='rall'
-    elif args.rWhitespaces:
-        compType='part'
-    else:
+        compType='rAll'
+    elif args.kWhitespaces:
         compType='abs'
+    else:
+        compType='part'
 
     if not os.path.isfile(args.zippath):
         raise ValueError("File(Zip Input) doesn't exist")
