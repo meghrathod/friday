@@ -3,7 +3,15 @@ import subprocess
 import json
 import time
 
-def runTest(testCasePath,filesPath,filename,timeOut,cname):
+def changeFormatting(str,compType):
+    if compType=='abs':
+        return str
+    elif compType=='part':
+        return str.strip()
+    elif compType=='rAll':
+        return "".join(str.split())
+
+def runTest(testCasePath,filesPath,filename,timeOut,cname,compType):
 
     with open(testCasePath, "r") as jfile:
         data = json.load(jfile)
@@ -28,7 +36,12 @@ def runTest(testCasePath,filesPath,filename,timeOut,cname):
             if(process.communicate(timeout=timeOut)[1]):
                 testResult.append(0)
             else:
-                testResult.append(1 if process.communicate(timeout=timeOut)[0] == indata["output"] else 0)
+                if changeFormatting(process.communicate(timeout=timeOut)[0], compType) == changeFormatting(
+                        indata["output"], compType):
+                    testResult.append(1)
+                else:
+                    testResult.append(0)
+                    checkTimout=0
         except subprocess.TimeoutExpired:
             process.kill()
             testResult.append(0)
