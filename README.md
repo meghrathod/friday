@@ -1,1 +1,1 @@
-# friday
+# F.R.I.D.A.Y.
