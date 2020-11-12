@@ -23,6 +23,8 @@ if __name__ == "__main__":
     parser.add_argument('-cl', '--clang', action='store_true', dest='useClang', help='use clang instead of gcc')
     parser.add_argument('-pn', '--problem-num', type=str, dest='pname',
                         default='', help='use to specify a specific problem number')
+    parser.add_argument('-ww', '--without-whitespace', action='store_true', dest='raWhitespaces', help='comparison after removing all whitespaces from I/O')
+    parser.add_argument('-wws', '--without-whitespace-special', action='store_true', dest='rWhitespaces', help='comp I/O after removing whitesaces at beginning and ending')
 
     args = parser.parse_args()
 
@@ -30,6 +32,14 @@ if __name__ == "__main__":
         cname='clang'
     else:
         cname='gcc'
+
+
+    if args.raWhitespaces:
+        compType='rall'
+    elif args.rWhitespaces:
+        compType='part'
+    else:
+        compType='abs'
 
     if not os.path.isfile(args.zippath):
         raise ValueError("File(Zip Input) doesn't exist")
@@ -44,7 +54,7 @@ if __name__ == "__main__":
     timetaken=[]
 
     for file in all_files:
-        test_result, time = runTest(args.testpath,files_dir,file,args.timeOut,cname)
+        test_result, time = runTest(args.testpath,files_dir,file,args.timeOut,cname,compType)
         casesPassed.append(test_result)
         if args.checkTime:
             timetaken.append(time)

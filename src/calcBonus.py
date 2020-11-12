@@ -9,12 +9,12 @@ def get_bonus_score(allTime,maxM):
     for stu in allTime:
         if stu == 0:
             bScore.append(0)
-        elif stu >= thirQ:
-            bScore.append(0.25*maxM)
-        elif stu >= secQ:
-            bScore.append(0.5*maxM)
         elif stu >= firstQ:
-            bScore.append(0.75*maxM)
-        else:
             bScore.append(maxM)
+        elif stu >= secQ:
+            bScore.append(0.75*maxM)
+        elif stu >= thirQ:
+            bScore.append(0.5*maxM)
+        else:
+            bScore.append(0.25*maxM)
     return bScore
