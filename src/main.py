@@ -21,6 +21,8 @@ if __name__ == "__main__":
     parser.add_argument('-to', '--timeout', type=int, dest='timeOut',
                         default=60, help='set timeout for each testcase')
     parser.add_argument('-cl', '--clang', action='store_true', dest='useClang', help='use clang instead of gcc')
+    parser.add_argument('-pn', '--problem-num', type=str, dest='pname',
+                        default='', help='use to specify a specific problem number')
 
     args = parser.parse_args()
 
@@ -35,7 +37,7 @@ if __name__ == "__main__":
         raise ValueError("File(Test Case) doesn't exist")
 
     zip_dir=args.zippath
-    all_files = extractAndList(zip_dir)
+    all_files = extractAndList(zip_dir,args.pname)
     files_dir = ".".join(zip_dir.split('.')[:-1])
 
     casesPassed=[]
