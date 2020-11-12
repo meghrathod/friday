@@ -21,13 +21,19 @@ For basic execution, use:
 
 ```python3 main.py -i path/to/zip/containing/all/c/files -ti path/to/test/case/file```
 
+The zip file should contain .c files in the format:
+
+```Problemnumber_rollnumber.c```
+
+eg: ```P1_1234.c```
+
 ### Test Case Writing
 
 The project accepts a ```.json``` file containing:
 
 - Test Input
 - Expected Output
-- Weigtage
+- Weightage
 
 for each test case.
 
