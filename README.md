@@ -60,6 +60,12 @@ The ```.json``` is expected in the following format:
   ]
 }
 ```
+### Mandatory Flags
+|Flag|Use|
+|---|---|
+|```-i```|Specify path of zipfile containing C programs|
+|```-ti```|Path to ```.json``` containing test I/O and Weigtage|
+
 
 ### Optional Flags
 
