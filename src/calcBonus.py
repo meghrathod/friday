@@ -1,9 +1,12 @@
 import numpy as np
 
 def get_bonus_score(allTime,maxM):
+    #print(allTime, maxM)
     firstQ=np.percentile(allTime,25)
     secQ=np.percentile(allTime,50)
     thirQ=np.percentile(allTime,75)
+
+    #print(firstQ, secQ, thirQ)
 
     bScore=[]
     for stu in allTime:

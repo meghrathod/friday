@@ -13,7 +13,7 @@ if __name__ == "__main__":
     parser.add_argument('-ti', '--test-case-path', type=str, dest='testpath',
                         required=True, help='input path for the zip')
     parser.add_argument('-o', '--output-path', type=str, dest='outpath',
-                        default='./testResults.csv', help='output path for the extraction')
+                        default='../testResults.csv', help='output path for the extraction')
     parser.add_argument('-r','--record-time',action='store_true',dest='checkTime',help='use to record runtime')
     parser.add_argument('-m', '--max-bonus-score', type=int, dest='maxB',
                         default=10, help='maximum bonus score')

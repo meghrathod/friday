@@ -27,6 +27,7 @@ def runTest(testCasePath,filesPath,filename,timeOut,cname,compType):
         return testResult,0
     p1.communicate()
     start=time.time()
+    #print(start)
     checkTimout=1
     for indata in data["test_cases"]:
         process = subprocess.Popen([fullExecPath], stdin=subprocess.PIPE,
@@ -41,10 +42,10 @@ def runTest(testCasePath,filesPath,filename,timeOut,cname,compType):
                     testResult.append(1)
                 else:
                     testResult.append(0)
-                    checkTimout=0
         except subprocess.TimeoutExpired:
             process.kill()
             testResult.append(0)
-            checkTimout=0
+
     end=time.time()
+
     return testResult, (end-start)*checkTimout
