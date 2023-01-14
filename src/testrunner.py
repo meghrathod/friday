@@ -2,6 +2,7 @@ import os
 import subprocess
 import json
 import time
+from compiler import compileFile
 
 
 def changeFormatting(str, compType):
@@ -14,27 +15,37 @@ def changeFormatting(str, compType):
 
 
 def runTest(testCasePath, filesPath, filename, timeOut, cname, compType):
-    #print("Reaches Test Runner")
+    # print("Reaches Test Runner")
     with open(testCasePath, "r") as jfile:
         data = json.load(jfile)
     testResult = []
 
     fullFilePath = os.path.join(filesPath, filename)
-    fullExecPath = os.path.join(filesPath, 'a.out')
+    # fullExecPath = os.path.join(filesPath, 'a.out')
 
-    #print(fullFilePath)
-    #print(fullExecPath)
+    # print(fullFilePath)
+    # print(fullExecPath)
+    fullExecPath = None
+    if cname == 'gcc' or cname == 'g++' or cname == 'clang':
+        fullExecPath, compileCheck = compileFile(fullFilePath, filesPath, cname)
+        # print(compileCheck)
+        if not compileCheck:
+            for cases in data["test_cases"]:
+                testResult.append(0)
+            return testResult, 0
 
-    p1 = subprocess.Popen([cname, fullFilePath, '-o', fullExecPath], stdout=subprocess.PIPE, stderr=subprocess.PIPE,
-                          encoding='utf8')
-    if p1.communicate()[1].find('error:') != -1:
-        for cases in data["test_cases"]:
-            testResult.append(0)
-        return testResult, 0
-    p1.communicate()
+    # print(fullExecPath)
+    # p1 = subprocess.Popen([cname, fullFilePath, '-o', fullExecPath], stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+    #                       encoding='utf8')
+    # if p1.communicate()[1].find('error:') != -1:
+    #     for cases in data["test_cases"]:
+    #         testResult.append(0)
+    #     return testResult, 0
+    # p1.communicate()
     start = time.time()
+
     # print(start)
-    checkTimout = 1
+    # checkTimout = 1
     for indata in data["test_cases"]:
         process = subprocess.Popen([fullExecPath], stdin=subprocess.PIPE,
                                    stdout=subprocess.PIPE, stderr=subprocess.PIPE, encoding='utf8')
@@ -54,4 +65,4 @@ def runTest(testCasePath, filesPath, filename, timeOut, cname, compType):
 
     end = time.time()
 
-    return testResult, (end - start) * checkTimout
+    return testResult, (end - start)  # * checkTimout
