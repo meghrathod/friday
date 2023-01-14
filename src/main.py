@@ -1,6 +1,5 @@
 import argparse
 import os
-import time
 from extract import extractAndList
 from testrunner import runTest
 from grader import addMarks
@@ -47,7 +46,9 @@ if __name__ == "__main__":
         case "CPP":
             cname = 'g++'
             fileExtension = '.cpp'
-
+        case "Python":
+            cname = 'python3'
+            fileExtension = '.py'
     #print(fileExtension)
 
     if args.raWhitespaces:
