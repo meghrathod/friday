@@ -16,6 +16,7 @@ def changeFormatting(str, compType):
 
 def runTest(testCasePath, filesPath, filename, timeOut, cname, compType):
     # print("Reaches Test Runner")
+    # global process
     with open(testCasePath, "r") as jfile:
         data = json.load(jfile)
     testResult = []
@@ -47,8 +48,11 @@ def runTest(testCasePath, filesPath, filename, timeOut, cname, compType):
     # print(start)
     # checkTimout = 1
     for indata in data["test_cases"]:
-        process = subprocess.Popen([fullExecPath], stdin=subprocess.PIPE,
-                                   stdout=subprocess.PIPE, stderr=subprocess.PIPE, encoding='utf8')
+        if cname == 'gcc' or cname == 'g++' or cname == 'clang':
+            process = subprocess.Popen([fullExecPath], stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, encoding='utf8')
+        elif cname == 'python3':
+            process = subprocess.Popen(['python3', fullFilePath], stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, encoding='utf8')
+
         process.stdin.write(indata["test_case"])
         try:
             if process.communicate(timeout=timeOut)[1]:
