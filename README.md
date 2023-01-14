@@ -51,7 +51,7 @@ The ```.json``` is expected in the following format:
       "test_case": "Sample input 1(formatted)",
       "output": "Expected Output 1(formatted)",
       "marks": 10(Max Marks if test case passes)
-    }
+    },
     {
       "test_case": "Sample input 2(formatted)",
       "output": "Expected Output 2(formatted)",
