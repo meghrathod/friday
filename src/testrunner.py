@@ -14,12 +14,16 @@ def changeFormatting(str, compType):
 
 
 def runTest(testCasePath, filesPath, filename, timeOut, cname, compType):
+    #print("Reaches Test Runner")
     with open(testCasePath, "r") as jfile:
         data = json.load(jfile)
     testResult = []
 
     fullFilePath = os.path.join(filesPath, filename)
     fullExecPath = os.path.join(filesPath, 'a.out')
+
+    #print(fullFilePath)
+    #print(fullExecPath)
 
     p1 = subprocess.Popen([cname, fullFilePath, '-o', fullExecPath], stdout=subprocess.PIPE, stderr=subprocess.PIPE,
                           encoding='utf8')

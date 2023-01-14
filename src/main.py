@@ -34,11 +34,19 @@ if __name__ == "__main__":
     # else:
     #     cname = 'gcc'
 
+    #cname = 'g++'
     match args.language:
         case "C":
             cname = 'gcc'
-        case "C":
+            fileExtension = '.c'
+        case "Clang":
             cname = 'clang'
+            fileExtension = '.c'
+        case "CPP":
+            cname = 'g++'
+            fileExtension = '.cpp'
+
+    #print(fileExtension)
 
     if args.raWhitespaces:
         compType = 'rAll'
@@ -53,14 +61,22 @@ if __name__ == "__main__":
         raise ValueError("File(Test Case) doesn't exist")
 
     zip_dir = args.zippath
-    all_files = extractAndList(zip_dir, args.pname)
+    #print(zip_dir)
+    all_files = extractAndList(zip_dir, args.pname, fileExtension)
     files_dir = ".".join(zip_dir.split('.')[:-1])
+    #print(files_dir)
+    #print(all_files)
 
     casesPassed = []
     timetaken = []
 
+    #print("Reaches Call")
+
     for file in all_files:
+        #print("Gets inside loop")
         test_result, time = runTest(args.testpath, files_dir, file, args.timeOut, cname, compType)
+        #print(test_result)
+        #print(time)
         casesPassed.append(test_result)
         if args.checkTime:
             timetaken.append(time)
@@ -68,4 +84,4 @@ if __name__ == "__main__":
 
     if args.checkTime:
         bScore = get_bonus_score(timetaken, args.maxB)
-    addMarks(all_files, args.outpath, casesPassed, args.testpath, bScore)
+    addMarks(all_files, args.outpath, casesPassed, args.testpath, bScore,fileExtension)
