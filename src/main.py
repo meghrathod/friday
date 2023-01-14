@@ -1,11 +1,13 @@
 import argparse
 import os
+import time
 from extract import extractAndList
 from testrunner import runTest
 from grader import addMarks
 from calcBonus import get_bonus_score
 
 if __name__ == "__main__":
+    # start = time.time()
     parser = argparse.ArgumentParser(description='Main arg parser')
     parser.add_argument('-i', '--input-path', type=str, dest='zippath',
                         required=True, help='input path for the zip')
@@ -85,3 +87,5 @@ if __name__ == "__main__":
     if args.checkTime:
         bScore = get_bonus_score(timetaken, args.maxB)
     addMarks(all_files, args.outpath, casesPassed, args.testpath, bScore,fileExtension)
+    # end = time.time()
+    # print(end-start)
