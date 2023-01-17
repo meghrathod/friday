@@ -2,10 +2,13 @@ import os
 import subprocess
 
 
-def compileFile(filePath,folderPath, cname):
+def compileFile(filePath,folderPath, cname, fileExtension):
     # print("Reaches Compiler!")
-    fullExecPath = os.path.join(folderPath, 'a.out')
+    outName = filePath[:len(filePath) - len(fileExtension)] + '.out'
+    print(outName)
+    fullExecPath = outName
     # print(fullExecPath)
+
     p1 = subprocess.Popen([cname, filePath, '-o', fullExecPath], stdout=subprocess.PIPE, stderr=subprocess.PIPE,
                           encoding='utf8')
     # out =
