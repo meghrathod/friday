@@ -14,7 +14,7 @@ def changeFormatting(str, compType):
         return "".join(str.split())
 
 
-def runTest(testCasePath, filesPath, filename, timeOut, cname, compType):
+def runTest(testCasePath, filesPath, filename, timeOut, cname, fileExtension, compType):
     # print("Reaches Test Runner")
     # global process
     with open(testCasePath, "r") as jfile:
@@ -28,7 +28,7 @@ def runTest(testCasePath, filesPath, filename, timeOut, cname, compType):
     # print(fullExecPath)
     fullExecPath = None
     if cname == 'gcc' or cname == 'g++' or cname == 'clang':
-        fullExecPath, compileCheck = compileFile(fullFilePath, filesPath, cname)
+        fullExecPath, compileCheck = compileFile(fullFilePath, filesPath, cname,fileExtension)
         # print(compileCheck)
         if not compileCheck:
             for cases in data["test_cases"]:
