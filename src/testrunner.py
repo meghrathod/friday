@@ -27,8 +27,8 @@ def runTest(testCasePath, filesPath, filename, timeOut, cname, fileExtension, co
     # print(fullFilePath)
     # print(fullExecPath)
     fullExecPath = None
-    if cname == 'gcc' or cname == 'g++' or cname == 'clang':
-        fullExecPath, compileCheck = compileFile(fullFilePath, filesPath, cname,fileExtension)
+    if cname == 'gcc' or cname == 'g++' or cname == 'clang' or cname == 'javac':
+        fullExecPath, compileCheck = compileFile(fullFilePath, filesPath, cname, fileExtension)
         # print(compileCheck)
         if not compileCheck:
             for cases in data["test_cases"]:
@@ -49,10 +49,15 @@ def runTest(testCasePath, filesPath, filename, timeOut, cname, fileExtension, co
     # checkTimout = 1
     for indata in data["test_cases"]:
         if cname == 'gcc' or cname == 'g++' or cname == 'clang':
-            process = subprocess.Popen([fullExecPath], stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, encoding='utf8')
+            process = subprocess.Popen([fullExecPath], stdin=subprocess.PIPE, stdout=subprocess.PIPE,
+                                       stderr=subprocess.PIPE, encoding='utf8')
         elif cname == 'python3':
-            print(fullFilePath)
-            process = subprocess.Popen(['python3', fullFilePath], stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, encoding='utf8')
+            # print(fullFilePath)
+            process = subprocess.Popen([cname, fullFilePath], stdin=subprocess.PIPE, stdout=subprocess.PIPE,
+                                       stderr=subprocess.PIPE, encoding='utf8')
+        elif cname == 'javac':
+            process = subprocess.Popen([cname[:len(cname) - 1], fullFilePath], stdin=subprocess.PIPE,
+                                       stdout=subprocess.PIPE, stderr=subprocess.PIPE, encoding='utf8')
 
         process.stdin.write(indata["test_case"])
         try:

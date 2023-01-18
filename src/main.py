@@ -51,6 +51,9 @@ if __name__ == "__main__":
         case "Python":
             cname = 'python3'
             fileExtension = '.py'
+        case "Java":
+            cname = 'javac'
+            fileExtension = '.java'
         case default:
             cname = 'g++'
             fileExtension = '.cpp'
