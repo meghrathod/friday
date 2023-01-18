@@ -51,6 +51,7 @@ def runTest(testCasePath, filesPath, filename, timeOut, cname, fileExtension, co
         if cname == 'gcc' or cname == 'g++' or cname == 'clang':
             process = subprocess.Popen([fullExecPath], stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, encoding='utf8')
         elif cname == 'python3':
+            print(fullFilePath)
             process = subprocess.Popen(['python3', fullFilePath], stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, encoding='utf8')
 
         process.stdin.write(indata["test_case"])
