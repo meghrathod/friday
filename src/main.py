@@ -4,6 +4,7 @@ from extract import extractAndList
 from testrunner import runTest
 from grader import addMarks
 from calcBonus import get_bonus_score
+from cleanup import removeAllExtracted
 import concurrent.futures
 
 if __name__ == "__main__":
@@ -73,7 +74,7 @@ if __name__ == "__main__":
     all_files = extractAndList(zip_dir, args.pname, fileExtension)
     files_dir = ".".join(zip_dir.split('.')[:-1])
 
-    print(files_dir)
+    # print(files_dir)
 
     casesPassed = []
     timetaken = []
@@ -99,5 +100,7 @@ if __name__ == "__main__":
     if args.checkTime:
         bScore = get_bonus_score(timetaken, args.maxB)
     addMarks(all_files, args.outpath, casesPassed, args.testpath, bScore, fileExtension)
+
+    removeAllExtracted(files_dir)
     # end = time.time()
     # print(end-start)
