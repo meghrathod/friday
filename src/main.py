@@ -73,6 +73,8 @@ if __name__ == "__main__":
     all_files = extractAndList(zip_dir, args.pname, fileExtension)
     files_dir = ".".join(zip_dir.split('.')[:-1])
 
+    print(files_dir)
+
     casesPassed = []
     timetaken = []
 
