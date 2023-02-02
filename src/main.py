@@ -38,6 +38,8 @@ if __name__ == "__main__":
     #     cname = 'gcc'
 
     # cname = 'g++'
+
+    # Allocate different Compiler Tags and File Extensions according to input type
     match args.language:
         case "C":
             cname = 'gcc'
@@ -83,7 +85,9 @@ if __name__ == "__main__":
     timetaken = []
 
     with concurrent.futures.ProcessPoolExecutor() as executor:
-        results = [executor.submit(runTest, args.testpath, files_dir, file, args.timeOut, cname,fileExtension, compType) for file in all_files]
+        results = [
+            executor.submit(runTest, args.testpath, files_dir, file, args.timeOut, cname, fileExtension, compType) for
+            file in all_files]
 
         for returnVal in concurrent.futures.as_completed(results):
             casesPassed.append(returnVal.result()[0])
