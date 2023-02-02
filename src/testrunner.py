@@ -1,7 +1,9 @@
+import atexit
 import os
 import subprocess
 import json
 import time
+# import atexit
 from compiler import compileFile
 
 
@@ -49,6 +51,7 @@ def runTest(testCasePath, filesPath, filename, timeOut, cname, fileExtension, co
     # checkTimout = 1
     for indata in data["test_cases"]:
         if cname == 'gcc' or cname == 'g++' or cname == 'clang':
+            # print(fullExecPath)
             process = subprocess.Popen([fullExecPath], stdin=subprocess.PIPE, stdout=subprocess.PIPE,
                                        stderr=subprocess.PIPE, encoding='utf8')
         elif cname == 'python3':
@@ -56,7 +59,14 @@ def runTest(testCasePath, filesPath, filename, timeOut, cname, fileExtension, co
             process = subprocess.Popen([cname, fullFilePath], stdin=subprocess.PIPE, stdout=subprocess.PIPE,
                                        stderr=subprocess.PIPE, encoding='utf8')
         elif cname == 'javac':
-            process = subprocess.Popen([cname[:len(cname) - 1], fullFilePath], stdin=subprocess.PIPE,
+
+            # TODO(Hydragyr):
+            #   Add user input for memory requirements per file for best execution time
+
+            # NOTE:
+            #   2 M Looks like the sweet spot for memory requirements for JVMs
+            #   1536k leads to shorter time than 2m
+            process = subprocess.Popen([cname[:len(cname) - 1],'-Xmx1536k' ,fullFilePath], stdin=subprocess.PIPE,
                                        stdout=subprocess.PIPE, stderr=subprocess.PIPE, encoding='utf8')
 
         process.stdin.write(indata["test_case"])
@@ -75,4 +85,9 @@ def runTest(testCasePath, filesPath, filename, timeOut, cname, fileExtension, co
 
     end = time.time()
 
+    # TODO(Hydragyr):
+    #   Add process killing for 'process'.
+
+    # process.kill()
+    # atexit.register(process.kill)
     return testResult, (end - start)  # * checkTimout
