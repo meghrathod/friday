@@ -18,13 +18,13 @@ const CardContainer = (props) => {
 
     const maxMarks = Math.max(...marksArray)
     const minMarks = Math.min(...marksArray)
-    const avgMarks = totalMarks / students.length
+    const avgMarks = marksArray.reduce(function (a, b) { return a + b; }, 0) / students.length
 
     const testCasesArray = students.map((student) => {
         return Number.parseInt(student.testcasesPassed)
     })
 
-    const avgTestCases = totalTestCases / students.length
+    const avgTestCases = testCasesArray.reduce(function (a, b) { return a + b; }, 0) / students.length
 
     const analysis = {
         "Maximum Marks": maxMarks,
