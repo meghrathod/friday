@@ -1,0 +1,56 @@
+{
+    "totalMarks": "10",
+    "totalTestCases": "2",
+    "students": [
+        {
+            "rollnumber": "1",
+            "testcasesPassed": "2",
+            "totalMarks": "10"
+        },
+        {
+            "rollnumber": "2",
+            "testcasesPassed": "1",
+            "totalMarks": "5"
+        },
+        {
+            "rollnumber": "3",
+            "testcasesPassed": "2",
+            "totalMarks": "10"
+        },
+        {
+            "rollnumber": "4",
+            "testcasesPassed": "1",
+            "totalMarks": "5"
+        },
+        {
+            "rollnumber": "5",
+            "testcasesPassed": "1",
+            "totalMarks": "5"
+        },
+        {
+            "rollnumber": "6",
+            "testcasesPassed": "2",
+            "totalMarks": "10"
+        },
+        {
+            "rollnumber": "7",
+            "testcasesPassed": "1",
+            "totalMarks": "5"
+        },
+        {
+            "rollnumber": "8",
+            "testcasesPassed": "2",
+            "totalMarks": "10"
+        },
+        {
+            "rollnumber": "9",
+            "testcasesPassed": "1",
+            "totalMarks": "5"
+        },
+        {
+            "rollnumber": "10",
+            "testcasesPassed": "2",
+            "totalMarks": "10"
+        }
+    ]
+}

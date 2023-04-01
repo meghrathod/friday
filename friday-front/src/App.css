@@ -69,3 +69,54 @@
 }
 
 
+.Dashboard{
+  
+}
+
+.Navbar{
+  margin: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 2rem;
+  background-color: #fff;
+  box-shadow: 0 0 0.5rem rgba(0,0,0,0.1);
+  width: 100%;
+}
+
+.navbar{
+  width: 100%;
+}
+
+.card-container{
+  padding: 2rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.card-size{
+  width: 20%;
+  flex-wrap: wrap;
+
+}
+
+.card-title{
+  font-size: 2rem !important;
+  font-weight: 600;
+  color: #000;
+}
+
+/* Add responsive card size */
+@media screen and (max-width: 768px) {
+  .card-size{
+    width: 100%;
+    margin: 1rem 0;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .card-container{
+    flex-direction: column;
+  }
+}
