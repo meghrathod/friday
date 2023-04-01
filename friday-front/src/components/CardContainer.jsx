@@ -13,7 +13,7 @@ const CardContainer = (props) => {
     // }
 
     const marksArray = students.map((student) => {
-        return student.totalMarks
+        return Number.parseInt(student.totalMarks)
     })
 
     const maxMarks = Math.max(...marksArray)
@@ -21,7 +21,7 @@ const CardContainer = (props) => {
     const avgMarks = totalMarks / students.length
 
     const testCasesArray = students.map((student) => {
-        return student.testcasesPassed
+        return Number.parseInt(student.testcasesPassed)
     })
 
     const avgTestCases = totalTestCases / students.length
@@ -29,12 +29,12 @@ const CardContainer = (props) => {
     const analysis = {
         "Maximum Marks": maxMarks,
         "Minimum Marks": minMarks,
-        "Average Marks": avgMarks,
-        "Avg. No. of Testcase": avgTestCases
+        "Average Marks": avgMarks.toFixed(2),
+        "Avg. No. of Testcase": avgTestCases.toFixed(2)
     }
 
     return (
-        <div className="card-container">
+        <div className="card-container2">
             {Object.entries(analysis).map((analysis) => {
                 return (
                     <Card className="card-size">

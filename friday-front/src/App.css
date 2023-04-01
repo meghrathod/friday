@@ -75,6 +75,7 @@
 
 .Navbar{
   margin: 0;
+  margin-bottom: 2rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -88,7 +89,7 @@
   width: 100%;
 }
 
-.card-container{
+.card-container2{
   padding: 2rem;
   display: flex;
   flex-direction: row;
@@ -107,16 +108,59 @@
   color: #000;
 }
 
+.chart-container{
+  margin: 1rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.chart-flex{
+  width: 48%;
+  flex-wrap: wrap;
+  padding-right: 3rem;
+  
+}
+
+.list-container{
+  margin: 2rem;
+  /* width: 75%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center; */
+}
+
+.badge-container{
+  margin: 0 1rem;
+  width: 100px;
+}
+
 /* Add responsive card size */
 @media screen and (max-width: 768px) {
   .card-size{
     width: 100%;
     margin: 1rem 0;
   }
-}
 
-@media screen and (max-width: 768px) {
   .card-container{
     flex-direction: column;
   }
+
+  .chart-flex{
+    width: 100%;
+    margin: 1rem 0;
+  }
+
+  .chart-container{
+    flex-direction: column;
+  }
+
+  .list-container{
+    margin: 1rem;
+  }
+
+
+
 }
+

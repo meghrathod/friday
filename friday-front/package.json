@@ -10,9 +10,11 @@
   },
   "dependencies": {
     "bootstrap": "^5.2.3",
+    "frappe-charts": "^1.6.2",
     "react": "^18.2.0",
     "react-bootstrap": "^2.7.2",
     "react-dom": "^18.2.0",
+    "react-frappe-charts": "^4.1.0",
     "react-router-dom": "^6.10.0",
     "socket.io-client": "^4.6.1"
   },
