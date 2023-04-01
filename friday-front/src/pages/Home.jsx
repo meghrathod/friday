@@ -8,6 +8,9 @@ import io from "socket.io-client";
 
 
 const Home = () => {
+
+    const supportedLanguages = ["C", "C++", "Java", "Python"];
+
     const [show, setShow] = useState(false);
 
     const [testcase, setTestcase] = useState(1);
@@ -17,6 +20,8 @@ const Home = () => {
         testcases: 1,
         inputs: [],
         outputs: [],
+        testWeights: [],
+        language: "C",
     });
 
     const [loading, setLoading] = useState(false);
@@ -28,6 +33,8 @@ const Home = () => {
         for (let i = 0; i < formData.testcases; i++) {
             data.append(`input${i + 1}`, formData.inputs[i]);
             data.append(`output${i + 1}`, formData.outputs[i]);
+            data.append(`testWeight${i + 1}`, formData.testWeights[i]);
+            data.append("language", formData.language);
         }
         setLoading(true);
         fetch("http://localhost:3000/api/assignments", {
@@ -133,6 +140,36 @@ const Home = () => {
                                     </select>
                                 </div>
                             </div>
+
+                            <div className="form-group row">
+                                <label
+                                    htmlFor="language"
+                                    className="col-3 col-form-label push-up"
+                                >
+                                    Language
+                                </label>
+                                <div className="col-9 bottom-gap">
+                                    <select
+                                        className="form-control "
+                                        id="language"
+                                        name="language"
+                                        onChange={(e) => {
+                                            setFormData({
+                                                ...formData,
+                                                language:
+                                                    e.target.value,
+                                            });
+                                        }}
+                                    >
+                                        {supportedLanguages.map((language) => (
+                                            <option value={language}>
+                                                {language}
+                                            </option>
+                                        ))}
+                                    </select>
+                                </div>
+                            </div>
+
                             {/* Create a for loop for  inputs and outputs based on number of test cases */}
                             {[...Array(testcase)].map((x, i) => (
                                 <div>
@@ -163,7 +200,7 @@ const Home = () => {
                                             />
                                         </div>
                                     </div>
-                                    <div className="form-group row bottom-gap">
+                                    <div className="form-group row">
                                         <label
                                             htmlFor={`output${i + 1}`}
                                             className="col-3 col-form-label push-up"
@@ -190,6 +227,36 @@ const Home = () => {
                                             />
                                         </div>
                                     </div>
+                                    <div className="form-group row bottom-gap">
+                                        <label
+                                            htmlFor={`output${i + 1}`}
+                                            className="col-3 col-form-label push-up"
+                                        >
+                                            Testcase Weightage
+                                        </label>
+                                        <div className="col-9">
+                                            <select
+                                                className="form-control test-weight"
+                                                id="testWeight"
+                                                name="testWeight"
+                                                onChange={(e) => {
+                                                    setFormData({
+                                                        ...formData,
+                                                        testWeight: Number.parseInt(
+                                                            e.target.value
+                                                        ),
+                                                    });
+                                                }}
+                                            >
+                                                {[...Array(10)].map((x, i) => (
+                                                    <option value={i + 1}>
+                                                        {i + 1}
+                                                    </option>
+                                                ))}
+                                            </select>
+                                        </div>
+                                    </div>
+
                                 </div>
                             ))}
                         </Modal.Body>

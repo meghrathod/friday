@@ -45,6 +45,11 @@
 
 .output-field{
   /* no top radius */
+  border-radius: 0 0!important
+}
+
+.test-weight{
+  /* no top radius */
   border-radius: 0 0 .375rem .375rem !important
 }
 
