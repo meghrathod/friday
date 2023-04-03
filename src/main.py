@@ -6,6 +6,7 @@ from grader import addMarks
 from calcBonus import get_bonus_score
 from cleanup import removeAllExtracted
 import concurrent.futures
+from createJSON import csv_to_json
 
 if __name__ == "__main__":
     # start = time.time()
@@ -36,7 +37,6 @@ if __name__ == "__main__":
     #     cname = 'clang'
     # else:
     #     cname = 'gcc'
-
     # cname = 'g++'
 
     # Allocate different Compiler Tags and File Extensions according to input type
@@ -109,5 +109,8 @@ if __name__ == "__main__":
     addMarks(all_files, args.outpath, casesPassed, args.testpath, bScore, fileExtension)
 
     removeAllExtracted(files_dir)
+    print(args.outpath)
+      
+    csv_to_json(args.outpath,args.testpath)
     # end = time.time()
     # print(end-start)
