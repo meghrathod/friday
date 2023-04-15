@@ -1,4 +1,11 @@
 {
+    "config":
+    [
+      {
+        "UID":"Romeo-Delta-Ice-Cream",
+        "language":"C"
+      }
+    ],
     "test_cases":
     [
       {
