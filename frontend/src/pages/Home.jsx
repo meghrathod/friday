@@ -55,9 +55,9 @@ const Home = () => {
                 console.log(data);
                 if(data.status == 400){
                     setReqError(true);
-                    setLoading(false);
+                    setLoading(false); 
                 } else{
-                    navigate('/dashboard', { state: { data: testData } });
+                    navigate('/dashboard', { state: { data: data } });
                 }
             })
             .catch((err) => {
