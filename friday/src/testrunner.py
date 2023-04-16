@@ -80,6 +80,7 @@ def runTest(testCasePath, filesPath, filename, timeOut, cname, fileExtension, co
                 else:
                     testResult.append(0)
         except subprocess.TimeoutExpired:
+            print("Here2")
             process.kill()
             testResult.append(0)
 

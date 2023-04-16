@@ -5,6 +5,8 @@ import Modal from "react-bootstrap/Modal";
 import { useState } from "react";
 import Spinner from 'react-bootstrap/Spinner';
 import io from "socket.io-client";
+import { useNavigate } from "react-router-dom";
+import testData from "../assets/testData.json";
 
 
 const Home = () => {
@@ -13,14 +15,19 @@ const Home = () => {
 
     const [show, setShow] = useState(false);
 
+    const [reqError, setReqError] = useState(false);
+
     const [testcase, setTestcase] = useState(1);
+
+    //  useNavigate
+    const navigate = useNavigate();
 
     const [formData, setFormData] = useState({
         file: null,
         testcases: 1,
         inputs: [],
         outputs: [],
-        testWeights: [],
+        testWeights: [1],
         language: "C",
     });
 
@@ -46,8 +53,12 @@ const Home = () => {
                 // handle data
                 // setLoading(false);
                 console.log(data);
-                setLoading(false);
-                handleClose();
+                if(data.status == 400){
+                    setReqError(true);
+                    setLoading(false); 
+                } else{
+                    navigate('/dashboard', { state: { data: data } });
+                }
             })
             .catch((err) => {
                 // handle error
@@ -90,6 +101,7 @@ const Home = () => {
                                         id="file"
                                         name="file"
                                         placeholder="Zip File"
+                                        accept=".zip"
                                         // Add a type of zip file only
                                         type="file"
                                         required="required"
@@ -229,7 +241,7 @@ const Home = () => {
                                     </div>
                                     <div className="form-group row bottom-gap">
                                         <label
-                                            htmlFor={`output${i + 1}`}
+                                            htmlFor={`testWeight${i + 1}`}
                                             className="col-3 col-form-label push-up"
                                         >
                                             Testcase Weightage
@@ -237,14 +249,15 @@ const Home = () => {
                                         <div className="col-9">
                                             <select
                                                 className="form-control test-weight"
-                                                id="testWeight"
-                                                name="testWeight"
+                                                id={`testWeight${i + 1}`}
+                                                name={`testWeight${i + 1}`}
                                                 onChange={(e) => {
+                                                    let testWeights =
+                                                        formData.testWeights;
+                                                    testWeights[i] = e.target.value;
                                                     setFormData({
                                                         ...formData,
-                                                        testWeight: Number.parseInt(
-                                                            e.target.value
-                                                        ),
+                                                        testWeights: testWeights,
                                                     });
                                                 }}
                                             >

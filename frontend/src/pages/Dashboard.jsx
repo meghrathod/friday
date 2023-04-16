@@ -5,24 +5,30 @@ import CardContainer from "../components/CardContainer";
 import ReactFrappeChart from "react-frappe-charts";
 import LineChart from "../components/LineChart";
 import { ListGroup, Badge } from "react-bootstrap";
+import { useLocation } from "react-router-dom";
 
 const Dashboard = (props) => {
-    const { students, totalMarks, totalTestCases } = props.data;
+
+    const location = useLocation()
+
+    const { students, totalMarks, totalTestCases } = location.state.data;
+
+
 
     return (
         <div className="Dashboard">
             <Navbar />
             <h2>Statistics</h2>
-            <CardContainer data={props.data} />
+            <CardContainer data={location.state.data} />
             <h2>Charts</h2>
             <div className="chart-container">
                 <LineChart
-                    data={props.data}
+                    data={location.state.data}
                     title="Marks Distributiton"
                     which="marks"
                 />
                 <LineChart
-                    data={props.data}
+                    data={location.state.data}
                     title="Testcases Passed"
                     which="testcase"
                 />

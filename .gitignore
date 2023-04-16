@@ -132,3 +132,5 @@ testResults.json
 test/TestZips/testCases.json
 test/TestZips/testCases.json
 test/TestZips/testCases.json
+
+node_modules/
