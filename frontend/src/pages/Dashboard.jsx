@@ -11,14 +11,29 @@ const Dashboard = (props) => {
 
     const location = useLocation()
 
-    const { students, totalMarks, totalTestCases } = location.state.data;
+    console.log(location.state.data);
+
+    const { uid, students, totalMarks, totalTestCases } = location.state.data;
 
 
 
     return (
         <div className="Dashboard">
             <Navbar />
-            <h2>Statistics</h2>
+            <div className="header-row">
+                <h2>Statistics</h2>
+                <h3>UID: 
+                    <Badge
+                    bg="warning"
+                    pill
+                    className="badge-container2"
+                >
+                    {uid}
+                    </Badge>
+                </h3>
+            </div>
+
+
             <CardContainer data={location.state.data} />
             <h2>Charts</h2>
             <div className="chart-container">

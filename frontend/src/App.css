@@ -36,6 +36,7 @@
     border-radius: 8px;
     border: 1px solid transparent;
     padding: 0.6em 1.2em;
+    margin: 0.5em;
 }
 
 .input-field{
@@ -94,6 +95,19 @@
   width: 100%;
 }
 
+.header-row{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 2rem;
+}
+
+.header-row .badge-container2{
+  margin: 0 1rem;
+  width: 300px;
+}
+
 .card-container2{
   padding: 2rem;
   display: flex;
@@ -114,7 +128,7 @@
 }
 
 .chart-container{
-  margin: 1rem;
+  margin: 2rem;
   display: flex;
   flex-direction: row;
   justify-content: space-between;

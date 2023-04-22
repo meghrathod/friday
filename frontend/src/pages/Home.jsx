@@ -14,6 +14,7 @@ const Home = () => {
     const supportedLanguages = ["C", "C++", "Java", "Python"];
 
     const [show, setShow] = useState(false);
+    const [showResult, setShowResult] = useState(false);
 
     const [reqError, setReqError] = useState(false);
 
@@ -29,6 +30,10 @@ const Home = () => {
         outputs: [],
         testWeights: [1],
         language: "C",
+    });
+
+    const [assName, setAssName] = useState({
+        assignmentName: "",
     });
 
     const [loading, setLoading] = useState(false);
@@ -66,8 +71,39 @@ const Home = () => {
             });
     }
 
+    function submitResult(e) {
+        const data = new FormData();
+        data.append("assignmentName", assName.assignmentName);
+        setLoading(true);
+        fetch("http://localhost:3000/api/fetch_assignment", {
+            method: "POST",
+            body: data,
+        })
+            .then((res) => res.json())
+            .then((data) => {
+                // handle data
+                // setLoading(false);
+                console.log(data);
+                if(data.status == 400){
+                    setReqError(true);
+                    setLoading(false); 
+                } else{
+                    navigate('/dashboard', { state: { data: data } });
+                }
+            })
+            .catch((err) => {
+                // handle error
+                // setLoading(false);
+            });
+    }
+
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+
+    const handleCloseResult = () => setShowResult(false);
+    const handleShowResult = () => setShowResult(true);
+
+
 
     return (
         <div className="home-page">
@@ -80,6 +116,66 @@ const Home = () => {
                 <button className="small-rounded-btn" onClick={handleShow}>
                     Upload Assignment
                 </button>
+
+                <button className="small-rounded-btn" onClick={handleShowResult}>
+                    Check Previous Assignment
+                </button>
+
+                <Modal show={showResult} onHide={handleCloseResult}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Retrieve Your Result</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <div className="form-group row">
+                            <label htmlFor="assignment-name" className="col-3 col-form-label push-up">
+                                Assignment Name
+                            </label>
+                            <div className="col-9">
+                                <input
+
+                                    className="form-control"
+                                    id="assignment-name"
+                                    name="assignment-name"
+                                    placeholder="Assignment Name"
+                                    type="text"
+                                    required="required"
+                                    onChange={(e) => {
+                                        setAssName({
+                                            assignmentName: e.target.value,
+                                        });
+                                    }}
+                                />
+                            </div>
+                        </div>
+                    </Modal.Body>
+
+                    <Modal.Footer>
+                        <Button
+                            variant="secondary"
+                            onClick={() => handleCloseResult()}
+                        >
+                            Close
+                        </Button>
+                        <Button
+                            variant={loading ? "secondary" : "primary"}
+                            onClick={() => {
+                                submitResult();
+                            }}
+                            disabled={loading}
+
+                        >
+                            {loading ? (
+                                <span>
+                                    <Spinner animation="border" size="sm" variant="light" className="spinner" />
+                                    Fetching Assignment
+                                </span>
+                            ) : (
+                                "Fetch Assignment"
+                            )}
+                        </Button>
+                    </Modal.Footer>
+                </Modal>
+
 
                 <Modal show={show} onHide={handleClose}>
                     <form onSubmit={handleSubmit}>
