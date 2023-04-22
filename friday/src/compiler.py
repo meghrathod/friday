@@ -18,7 +18,7 @@ def compileFile(filePath, folderPath, cname, fileExtension):
         p1 = subprocess.Popen([cname, fullExecPath], stdout=subprocess.PIPE, stderr=subprocess.PIPE, encoding='utf8')
 
     if p1.communicate()[1].find('error:') != -1:
-        atexit.register(p1.kill())
+        atexit.register(p1.kill)
         return -1, False
 
     # TODO(Hydragyr):

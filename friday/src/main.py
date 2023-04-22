@@ -1,7 +1,7 @@
 import argparse
 import os
 from extract import extractAndList
-from testrunner import runTest
+from runner import runTest
 from grader import addMarks
 from calcBonus import get_bonus_score
 from cleanup import removeAllExtracted
