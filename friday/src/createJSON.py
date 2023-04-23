@@ -14,10 +14,17 @@ def getTestCases(testCasePath):
         data = json.load(jfile)
     return len(data["test_cases"])
 
+def getUID(testCasePath):
+    with open(testCasePath, "r") as jfile:
+        data = json.load(jfile)
+        # print(data["uid"])
+    return data["uid"]
+
 def csv_to_json(csv_file_path, testCasePath):
     # Create an empty list to store the student data
     students = []
 
+    # getUID(testCasePath)
     # Open the CSV file and read the data into a dictionary
     with open(csv_file_path, 'r') as csv_file:
         csv_reader = csv.DictReader(csv_file)
@@ -43,6 +50,7 @@ def csv_to_json(csv_file_path, testCasePath):
 
     # Create a dictionary to store the final JSON data
     json_data = {
+        'uid': str(getUID(testCasePath)),
         'totalMarks': str(getTotalMarks(testCasePath)),
         'totalTestCases': str(getTestCases(testCasePath)),
         'students': students
