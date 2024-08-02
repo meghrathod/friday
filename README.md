@@ -15,7 +15,7 @@ Or, if you use ```conda```, you can install it with:
 
 To install the project repo, run the following git command:
 
-```git clone https://github.com/aditya-mahendru/friday.git```
+```git clone https://github.com/meghrathod/friday.git```
 
 ## Usage
 
